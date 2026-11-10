@@ -44,11 +44,23 @@ func TestWLANApplyPlanToState_roamingAssistant(t *testing.T) {
 	if d.HasError() {
 		t.Fatalf("planToWLAN: %v", d)
 	}
-	if !wlan.RoamingAssistantNaEnabled || wlan.RoamingAssistantNaRssi == nil || *wlan.RoamingAssistantNaRssi != na {
-		t.Errorf("payload 5 GHz = %v/%v, want true/%d", wlan.RoamingAssistantNaEnabled, wlan.RoamingAssistantNaRssi, na)
+	if !wlan.RoamingAssistantNaEnabled || wlan.RoamingAssistantNaRssi == nil ||
+		*wlan.RoamingAssistantNaRssi != na {
+		t.Errorf(
+			"payload 5 GHz = %v/%v, want true/%d",
+			wlan.RoamingAssistantNaEnabled,
+			wlan.RoamingAssistantNaRssi,
+			na,
+		)
 	}
-	if !wlan.RoamingAssistant6EEnabled || wlan.RoamingAssistant6ERssi == nil || *wlan.RoamingAssistant6ERssi != sixE {
-		t.Errorf("payload 6 GHz = %v/%v, want true/%d", wlan.RoamingAssistant6EEnabled, wlan.RoamingAssistant6ERssi, sixE)
+	if !wlan.RoamingAssistant6EEnabled || wlan.RoamingAssistant6ERssi == nil ||
+		*wlan.RoamingAssistant6ERssi != sixE {
+		t.Errorf(
+			"payload 6 GHz = %v/%v, want true/%d",
+			wlan.RoamingAssistant6EEnabled,
+			wlan.RoamingAssistant6ERssi,
+			sixE,
+		)
 	}
 
 	// An unknown planned group keeps the controller's values.
@@ -57,7 +69,12 @@ func TestWLANApplyPlanToState_roamingAssistant(t *testing.T) {
 		RoamingAssistantNa: types.ObjectUnknown(wlanRoamingAssistantAttrTypes()),
 		RoamingAssistant6E: types.ObjectUnknown(wlanRoamingAssistantAttrTypes()),
 	}, &kept)
-	if !kept.RoamingAssistantNa.Equal(state.RoamingAssistantNa) || !kept.RoamingAssistant6E.Equal(state.RoamingAssistant6E) {
-		t.Errorf("unknown planned roaming assistant must keep state: na=%v 6e=%v", kept.RoamingAssistantNa, kept.RoamingAssistant6E)
+	if !kept.RoamingAssistantNa.Equal(state.RoamingAssistantNa) ||
+		!kept.RoamingAssistant6E.Equal(state.RoamingAssistant6E) {
+		t.Errorf(
+			"unknown planned roaming assistant must keep state: na=%v 6e=%v",
+			kept.RoamingAssistantNa,
+			kept.RoamingAssistant6E,
+		)
 	}
 }
